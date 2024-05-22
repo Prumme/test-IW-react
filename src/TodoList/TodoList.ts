@@ -43,7 +43,7 @@ export class TodoList extends Array<Item> {
     this.push(item);
     if (this.LimitApproaching) {
       EmailSenderService.send(
-        "You are approaching the limit of 10 items in your list"
+        EmailSenderService.TODO_LIST_LIMIT_APPROACHING_MESSAGE
       );
     }
   }

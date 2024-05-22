@@ -131,7 +131,7 @@ describe("Class TodoList", () => {
     todoList.add(itemTest);
     expect(todoList.length).toBe(8);
     expect(EmailSenderService.send).toHaveBeenCalledWith(
-      "You are approaching the limit of 10 items in your list"
+      EmailSenderService.TODO_LIST_LIMIT_APPROACHING_MESSAGE
     );
   });
 
