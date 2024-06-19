@@ -6,7 +6,7 @@ const user: User = new User(
   "John",
   "johndoe@email.fr",
   new Date("1990-01-01"),
-  "password"
+  "Password123"
 );
 
 describe("Class User", () => {
@@ -56,5 +56,69 @@ describe("Class User", () => {
     user.setEmail("johndoemail.fr");
 
     expect(user.isValid()).toBe(false);
+  });
+});
+
+describe("Class Verification User", () => {
+  beforeEach(() => {
+    user.setFirstname("John");
+    user.setLastname("Doe");
+    user.setEmail("johndoe@mail.fr");
+
+    const dateOfBirth = new Date();
+    dateOfBirth.setFullYear(dateOfBirth.getFullYear() - 18);
+    user.setDateOfBirth(dateOfBirth);
+  });
+
+  test("Email validation", () => {
+    expect(user.isEmailValid()).toBe(true);
+  });
+
+  test("Email validation without @", () => {
+    user.setEmail("johndoeemail.fr");
+
+    expect(user.isEmailValid()).toBe(false);
+  });
+
+  test("Email validation without .", () => {
+    user.setEmail("johndoe@mailfr");
+
+    expect(user.isEmailValid()).toBe(false);
+  });
+
+  test("Email validation without @ and .", () => {
+    user.setEmail("johndoemailfr");
+
+    expect(user.isEmailValid()).toBe(false);
+  });
+
+  test("Email validation with multiple @", () => {
+    user.setEmail("johndoe@mail@fr");
+
+    expect(user.isEmailValid()).toBe(false);
+  });
+
+  test("Password validation less than 8 char", () => {
+    user.setPassword("Pass12");
+
+    expect(user.isPasswordValid()).toBe(false);
+  });
+
+  test("Password validation without uppercase", () => {
+    user.setPassword("password123");
+
+    expect(user.isPasswordValid()).toBe(false);
+  });
+
+  test("Password validation without lowercase", () => {
+    user.setPassword("PASSWORD123");
+
+    expect(user.isPasswordValid()).toBe(false);
+  });
+
+  test("Password validation without number", () => {
+    user.setPassword("Password");
+
+    expect(user.isPasswordValid()).toBe(false);
   });
 });

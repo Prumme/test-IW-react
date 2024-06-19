@@ -84,10 +84,10 @@ export class User {
     if (this.password === null) {
       return false;
     }
-    if (/^[A-Za-z0-9_]{0,255}$/g.test(this.password) === false) {
-      return false;
-    }
-    return this.password.length >= 8 && this.password.length <= 40;
+    // check if password contains at least one uppercase letter one lowercase letter and one number
+    return /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,40}$/g.test(
+      this.password
+    );
   }
 
   isValid(): boolean {
